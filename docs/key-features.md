@@ -11,17 +11,6 @@ The main public view that displays only accepted and published posts to all user
 - Displays post title, description, image, author, and timestamp
 - Automatically updates when new content is approved
 
-## Search Functionality
-
-Robust search capabilities allow all users to quickly locate specific content.
-
-**Search Criteria:**
-
-- Keywords within post content
-- Post titles
-- Author names
-- Tags and categories
-
 ## User Activity Tracking
 
 A dedicated section that displays recent community interactions to enhance awareness and engagement.
@@ -30,8 +19,6 @@ A dedicated section that displays recent community interactions to enhance aware
 
 - New post submissions
 - Post updates and edits
-- User contributions
-- Recent approvals
 
 **Example notifications in Activity Area:**
 
@@ -47,7 +34,6 @@ Developers have access to a private workspace to manage their content contributi
 - Create posts
 - Submit posts for admin review
 - Edit rejected posts for resubmission
-- Track post status in real-time
 
 **Post Statuses:**
 
