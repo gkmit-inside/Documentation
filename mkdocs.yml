@@ -64,3 +64,8 @@ nav:
   # - Role Based Access Control: rbac.md
   - Use and Functional Cases: functional-cases.md
   - Business Cases: business-cases.md
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/GKMIT-Inside/Documentation
