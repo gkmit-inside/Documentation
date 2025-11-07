@@ -1,6 +1,6 @@
 # Key Features
 
-GKMIT_INSIDE offers a comprehensive set of features designed to facilitate knowledge sharing and community collaboration.
+**GKMIT_INSIDE** offers a comprehensive set of features designed to facilitate knowledge sharing and community collaboration.
 
 ## Content Feed
 
@@ -47,7 +47,6 @@ The platform implements strict RBAC to ensure appropriate access levels for diff
 
 **User Roles:**
 
-- **Newcomer/Base-level**: Read-only access to published content
 - **Developer**: Full read access plus content creation capabilities
 - **Admin**: Complete platform control including approval workflows
 
