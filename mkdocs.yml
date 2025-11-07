@@ -4,6 +4,8 @@ site_author: GKMIT Team
 
 theme:
   name: material
+  logo: assets/images/gkmit_inside_logo.png
+  favicon: assets/images/gkmit_inside_favicon.ico
   palette:
     # Light mode
     - scheme: default
