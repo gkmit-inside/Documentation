@@ -1,8 +1,10 @@
-# **Prototypes and Endpoints**
+# **Pages and Endpoints**
 
 This section outlines all platform pages, their corresponding endpoints, and permitted user roles.
 
 ## Public Pages
+
+---
 
 ### Landing Page (Before Login)
 
@@ -22,7 +24,7 @@ This section outlines all platform pages, their corresponding endpoints, and per
 
 ## User Pages
 
-### Home/Feed
+### Feed
 
 **Endpoint:** `/feed`
 
@@ -36,9 +38,11 @@ This section outlines all platform pages, their corresponding endpoints, and per
 
 **Access:** All Users (Developer, Admin)
 
+---
+
 ### Saved Posts
 
-**Endpoint:** `/saved`
+**Endpoint:** `/posts/saved`
 
 **Description:** Personal collection of bookmarked posts.
 
@@ -56,7 +60,7 @@ This section outlines all platform pages, their corresponding endpoints, and per
 
 ### Add Post
 
-**Endpoint:** `/addpost`
+**Endpoint:** `/posts/create`
 
 **Description:** Form interface for creating new posts.
 
@@ -72,9 +76,11 @@ This section outlines all platform pages, their corresponding endpoints, and per
 
 **Access:** Developer, Admin
 
+---
+
 ### Your Posts
 
-**Endpoint:** `/yourpost`
+**Endpoint:** `/posts/me`
 
 **Description:** Personal workspace showing all posts submitted by the logged-in user.
 
@@ -87,9 +93,11 @@ This section outlines all platform pages, their corresponding endpoints, and per
 
 **Access:** Developer, Admin
 
+---
+
 ### Edit/Delete Post
 
-**Endpoint:** `/edit/<post_id>`
+**Endpoint:** `/posts/postId/edit`
 
 **Description:** Interface for modifying existing posts.
 
@@ -109,7 +117,7 @@ This section outlines all platform pages, their corresponding endpoints, and per
 
 ### Admin Dashboard
 
-**Endpoint:** `/dash`
+**Endpoint:** `/admin/dashboard`
 
 **Description:** Central administrative interface with platform overview.
 
@@ -122,9 +130,11 @@ This section outlines all platform pages, their corresponding endpoints, and per
 
 **Access:** Admin Only
 
+---
+
 ### Pending Users
 
-**Endpoint:** Sub-section of Admin Dashboard
+**Endpoint:** Sub-section of Admin Dashboard `(/admin/users/pending)`
 
 **Description:** User management interface for new registrations.
 
@@ -136,9 +146,11 @@ This section outlines all platform pages, their corresponding endpoints, and per
 
 **Access:** Admin Only
 
+---
+
 ### Pending Posts
 
-**Endpoint:** Sub-section of Admin Dashboard
+**Endpoint:** Sub-section of Admin Dashboard `(/admin/posts/pending)`
 
 **Description:** Content review queue for submitted posts.
 
@@ -168,13 +180,15 @@ This section outlines all platform pages, their corresponding endpoints, and per
 
 ## Endpoint Summary Table
 
-| Endpoint          | Description       | Developer | Admin |
-| ----------------- | ----------------- | --------- | ----- |
-| `/`               | Landing page      | Yes       | Yes   |
-| `/feed`           | Main content feed | Yes       | Yes   |
-| `/saved`          | Saved posts       | Yes       | Yes   |
-| `/addpost`        | Create new post   | Yes       | Yes   |
-| `/yourpost`       | User's posts      | Yes       | Yes   |
-| `/edit/<post_id>` | Edit/delete post  | Yes       | Yes   |
-| `/dash`           | Admin dashboard   | No        | Yes   |
-| `/logout`         | Logout            | Yes       | Yes   |
+| Endpoint               | Description           | Developer | Admin |
+| ---------------------- | --------------------- | --------- | ----- |
+| `/`                    | Landing Page          | ✅        | ✅    |
+| `/feed`                | Main Feed             | ✅        | ✅    |
+| `/posts/saved`         | Saved Posts           | ✅        | ✅    |
+| `/posts/create`        | Create Post           | ✅        | ✅    |
+| `/posts/mine`          | My Posts              | ✅        | ✅    |
+| `/posts/:postId/edit`  | Edit/Delete Post      | ✅        | ✅    |
+| `/admin/dashboard`     | Admin Dashboard       | ❌        | ✅    |
+| `/admin/users/pending` | Pending User Approval | ❌        | ✅    |
+| `/admin/posts/pending` | Pending Post Approval | ❌        | ✅    |
+| `/logout`              | Logout                | ✅        | ✅    |
