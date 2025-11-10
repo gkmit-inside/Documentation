@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#prototypes-and-endpoints" class="md-skip">
+        <a href="#pages-and-endpoints" class="md-skip">
           Skip to content
         </a>
       
@@ -406,9 +406,9 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#homefeed" class="md-nav__link">
+  <a href="#feed" class="md-nav__link">
     <span class="md-ellipsis">
-      Home/Feed
+      Feed
     </span>
   </a>
   
@@ -658,9 +658,9 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#homefeed" class="md-nav__link">
+  <a href="#feed" class="md-nav__link">
     <span class="md-ellipsis">
-      Home/Feed
+      Feed
     </span>
   </a>
   
@@ -813,9 +813,10 @@
 
 
 
-<h1 id="prototypes-and-endpoints"><strong>Prototypes and Endpoints</strong></h1>
+<h1 id="pages-and-endpoints"><strong>Pages and Endpoints</strong></h1>
 <p>This section outlines all platform pages, their corresponding endpoints, and permitted user roles.</p>
 <h2 id="public-pages">Public Pages</h2>
+<hr />
 <h3 id="landing-page-before-login">Landing Page (Before Login)</h3>
 <p><strong>Endpoint:</strong> <code>/</code></p>
 <p><strong>Description:</strong> The entry point for all visitors, providing project information and login option.</p>
@@ -828,7 +829,7 @@
 <p><strong>Access:</strong> All Visitors (including external)</p>
 <hr />
 <h2 id="user-pages">User Pages</h2>
-<h3 id="homefeed">Home/Feed</h3>
+<h3 id="feed">Feed</h3>
 <p><strong>Endpoint:</strong> <code>/feed</code></p>
 <p><strong>Description:</strong> Main content feed displaying all accepted posts.</p>
 <p><strong>Features:</strong></p>
@@ -838,8 +839,9 @@
 <li>Activity stream</li>
 </ul>
 <p><strong>Access:</strong> All Users (Developer, Admin)</p>
+<hr />
 <h3 id="saved-posts">Saved Posts</h3>
-<p><strong>Endpoint:</strong> <code>/saved</code></p>
+<p><strong>Endpoint:</strong> <code>/posts/saved</code></p>
 <p><strong>Description:</strong> Personal collection of bookmarked posts.</p>
 <p><strong>Features:</strong></p>
 <ul>
@@ -851,7 +853,7 @@
 <hr />
 <h2 id="developer-pages">Developer Pages</h2>
 <h3 id="add-post">Add Post</h3>
-<p><strong>Endpoint:</strong> <code>/addpost</code></p>
+<p><strong>Endpoint:</strong> <code>/posts/create</code></p>
 <p><strong>Description:</strong> Form interface for creating new posts.</p>
 <p><strong>Form Fields:</strong></p>
 <ul>
@@ -863,8 +865,9 @@
 </ul>
 <p><strong>Actions:</strong> Submit for Review</p>
 <p><strong>Access:</strong> Developer, Admin</p>
+<hr />
 <h3 id="your-posts">Your Posts</h3>
-<p><strong>Endpoint:</strong> <code>/yourpost</code></p>
+<p><strong>Endpoint:</strong> <code>/posts/me</code></p>
 <p><strong>Description:</strong> Personal workspace showing all posts submitted by the logged-in user.</p>
 <p><strong>Filters:</strong></p>
 <ul>
@@ -874,8 +877,9 @@
 <li>Rejected posts</li>
 </ul>
 <p><strong>Access:</strong> Developer, Admin</p>
+<hr />
 <h3 id="editdelete-post">Edit/Delete Post</h3>
-<p><strong>Endpoint:</strong> <code>/edit/&lt;post_id&gt;</code></p>
+<p><strong>Endpoint:</strong> <code>/posts/postId/edit</code></p>
 <p><strong>Description:</strong> Interface for modifying existing posts.</p>
 <p><strong>Capabilities:</strong></p>
 <ul>
@@ -889,7 +893,7 @@
 <hr />
 <h2 id="admin-pages">Admin Pages</h2>
 <h3 id="admin-dashboard">Admin Dashboard</h3>
-<p><strong>Endpoint:</strong> <code>/dash</code></p>
+<p><strong>Endpoint:</strong> <code>/admin/dashboard</code></p>
 <p><strong>Description:</strong> Central administrative interface with platform overview.</p>
 <p><strong>Dashboard Sections:</strong></p>
 <ul>
@@ -899,8 +903,9 @@
 <li>Total accepted posts</li>
 </ul>
 <p><strong>Access:</strong> Admin Only</p>
+<hr />
 <h3 id="pending-users">Pending Users</h3>
-<p><strong>Endpoint:</strong> Sub-section of Admin Dashboard</p>
+<p><strong>Endpoint:</strong> Sub-section of Admin Dashboard <code>(/admin/users/pending)</code></p>
 <p><strong>Description:</strong> User management interface for new registrations.</p>
 <p><strong>Actions:</strong></p>
 <ul>
@@ -909,8 +914,9 @@
 <li>Reject registration</li>
 </ul>
 <p><strong>Access:</strong> Admin Only</p>
+<hr />
 <h3 id="pending-posts">Pending Posts</h3>
-<p><strong>Endpoint:</strong> Sub-section of Admin Dashboard</p>
+<p><strong>Endpoint:</strong> Sub-section of Admin Dashboard <code>(/admin/posts/pending)</code></p>
 <p><strong>Description:</strong> Content review queue for submitted posts.</p>
 <p><strong>Actions:</strong></p>
 <ul>
@@ -940,51 +946,63 @@
 <tbody>
 <tr>
 <td><code>/</code></td>
-<td>Landing page</td>
-<td>Yes</td>
-<td>Yes</td>
+<td>Landing Page</td>
+<td>✅</td>
+<td>✅</td>
 </tr>
 <tr>
 <td><code>/feed</code></td>
-<td>Main content feed</td>
-<td>Yes</td>
-<td>Yes</td>
+<td>Main Feed</td>
+<td>✅</td>
+<td>✅</td>
 </tr>
 <tr>
-<td><code>/saved</code></td>
-<td>Saved posts</td>
-<td>Yes</td>
-<td>Yes</td>
+<td><code>/posts/saved</code></td>
+<td>Saved Posts</td>
+<td>✅</td>
+<td>✅</td>
 </tr>
 <tr>
-<td><code>/addpost</code></td>
-<td>Create new post</td>
-<td>Yes</td>
-<td>Yes</td>
+<td><code>/posts/create</code></td>
+<td>Create Post</td>
+<td>✅</td>
+<td>✅</td>
 </tr>
 <tr>
-<td><code>/yourpost</code></td>
-<td>User's posts</td>
-<td>Yes</td>
-<td>Yes</td>
+<td><code>/posts/mine</code></td>
+<td>My Posts</td>
+<td>✅</td>
+<td>✅</td>
 </tr>
 <tr>
-<td><code>/edit/&lt;post_id&gt;</code></td>
-<td>Edit/delete post</td>
-<td>Yes</td>
-<td>Yes</td>
+<td><code>/posts/:postId/edit</code></td>
+<td>Edit/Delete Post</td>
+<td>✅</td>
+<td>✅</td>
 </tr>
 <tr>
-<td><code>/dash</code></td>
-<td>Admin dashboard</td>
-<td>No</td>
-<td>Yes</td>
+<td><code>/admin/dashboard</code></td>
+<td>Admin Dashboard</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td><code>/admin/users/pending</code></td>
+<td>Pending User Approval</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td><code>/admin/posts/pending</code></td>
+<td>Pending Post Approval</td>
+<td>❌</td>
+<td>✅</td>
 </tr>
 <tr>
 <td><code>/logout</code></td>
 <td>Logout</td>
-<td>Yes</td>
-<td>Yes</td>
+<td>✅</td>
+<td>✅</td>
 </tr>
 </tbody>
 </table>
