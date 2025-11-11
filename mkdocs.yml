@@ -69,6 +69,7 @@ nav:
           - Authentication Module : auth-module.md
           - User Management Module : user-management-module.md
           - Post Management Module : post-management-module.md
+          - Interaction System : interaction-system.md
   - Use and Functional Cases: functional-cases.md
   - Business Cases: business-cases.md
 
