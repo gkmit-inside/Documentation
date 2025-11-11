@@ -1,13 +1,16 @@
 # **Level 0 — Context Diagram**
 
-This diagram illustrates the **high-level data flow** between the two primary user roles — **Admin** and **Employee** — and the central system, **GKMIT_INSIDE**.  
+This **Level 0 Data Flow Diagram (DFD)** provides a high-level overview of the **GKMIT_INSIDE** platform’s data flow between users, the system, and the database. It shows how information moves between external entities (Employee and Admin), the main system process, and the MongoDB database.
+
+This diagram illustrates the **high-level data flow** between the two primary user roles — **Admin** and **Employee** — and the central system, **GKMIT_INSIDE**.
+
 It highlights how users interact with the platform for registration, posting, approvals, and content access, while the system handles data storage and processing via **MongoDB**.
 
 ---
 
 <!-- impoting image of dfd level 0 -->
 
-![DFD: Level - 0](assets/images/dfd-level-0.png){ width="800" }
+![DFD: Level - 0](assets/images/dfd-level-0.png){ width="2800" }
 
 ---
 
