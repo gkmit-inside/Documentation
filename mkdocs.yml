@@ -23,17 +23,13 @@ theme:
         name: Switch to light mode
   
   features:
-    # - navigation.tabs
-    # - navigation.top
-    - navigation.expand
     - navigation.sections
-    - navigation.instant
-    - navigation.tracking
-    - search.suggest
+    - navigation.expand
+    - navigation.indexes
     - search.highlight
-    - content.tabs.link
-    - content.code.annotation
     - content.code.copy
+    - content.tabs.link
+    - toc.integrate
   
   font:
     text: Outfit
