@@ -21,7 +21,7 @@ This section ensures the user registration process functions correctly, enforcin
 
 ---
 
-## TC 1.B: Login Test Cases
+## TC 1.B: Login and Logout Test Cases
 
 This section validates the authentication process to ensure only authorized users can access the platform using valid credentials.
 
