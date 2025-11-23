@@ -1,6 +1,6 @@
 # DFD Level 2: Authentication & Authorization
 
-This document provides an overview and detailed flow description for the **Authentication & Authorization (AUTH)** module, which is responsible for managing user access, registration, and credential validation within the **GKMIT_INSIDE**.
+This document provides an overview and detailed flow description for the **Authentication & Authorization (AUTH)** module, which is responsible for managing user access, registration, and credential validation within the **GKMIT INSIDE**.
 
 ---
 
@@ -74,17 +74,8 @@ This flow covers how users attempt to log in and gain system access:
 
    - **(7c) Invalid Credentials** - Returns an error message: `"Username or password incorrect."`
 
-   - **(7b) Unapproved (Password Match, but `isApproved: false`)** - Redirects the user to the `/request_pending` page.
+   - **(7b) Unapproved (Password Match, but `isApproved: false`)** - User gets a "Waiting of approval" message.
 
    - **(7a) Approved (Password Match, and `isApproved: true`)** - Generates a **JWT Token** (stored in local storage) and redirects the user to the main `/feed` page.
 
 ---
-
-## Summary
-
-- The Authentication & Authorization (Level 2) flow ensures **secure user onboarding** and **controlled access** across the system.
-- It separates the **registration** and **login validation** processes, enforcing admin approval before any account becomes active.
-- By integrating password hashing, approval checks, and JWT-based session handling, the system maintains strong data security and user identity protection.
-- This structured flow minimizes unauthorized access, maintains integrity of user data, and enhances the overall trust and compliance of the platform.
-
-Ultimately, only verified and approved users are permitted full access to the GKMIT_INSIDE platform.

@@ -2,10 +2,9 @@
 
 ## Overview
 
-The database for the platform is designed using a modular approach, primarily centered around users, posts, and their interactions. Each user can create posts, react, comment, and bookmark them. Posts are moderated and managed by admins.
-
-Soft deletion is implemented for reversible actions and moderation flexibility.  
-This design ensures scalability, maintainability, and clear ownership across entities.
+The database for the platform is designed using a modular approach, primarily centered around users, posts, and their interactions. Each user can create posts, react, comment, and bookmark them. Posts are moderated and managed by admins.  
+- Soft deletion is implemented for reversible actions and moderation flexibility.  
+- This design ensures scalability, maintainability, and clear ownership across entities.
 
 ## Schema
 
@@ -79,4 +78,17 @@ This design ensures scalability, maintainability, and clear ownership across ent
 | `userId`    | ObjectId | Reference to USERS                  |
 | `createdAt` | date     | Timestamp of creation               |
 | `updatedAt` | date     | Timestamp of last update            |
+| `deletedAt` | date     | Timestamp of soft deletion          |
+
+### Table: `ACTIVITY_LOG`
+
+| Field             | Type     | Description                                           |
+| ----------------- | -------- | ----------------------------------------------------- |
+| `_id`             | ObjectId | Unique ID                                             |
+| `ownerId`         | ObjectId | Reference to USERS       |
+| `actorId`         | ObjectId | Reference to USERS    |
+| `postId`          | ObjectId | Reference to POSTS        |
+| `activityType`    | string   | Type of activity (POSTED, REACTED, COMMENTED)   |
+| `relatedEntityId` | ObjectId | Reference to COMMENTS/REACTIONS (ID of specific entity) |
+| `createdAt`       | date     | Timestamp of creation                                 |
 | `deletedAt` | date     | Timestamp of soft deletion          |

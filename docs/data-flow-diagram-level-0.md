@@ -25,20 +25,20 @@ It highlights how both **Admin** and **Employee** users interact with the platfo
 
 **Admin**
 
-- Oversees user and post approvals, manages analytics, and has access to all employee-level features.
+- Oversees user and post approvals, manages analytics.
 - Admins ensure that only compliant and approved content is published.
 
-**GKMIT_INSIDE (System Process)**
+**GKMIT INSIDE (System Process)**
 
-- Acts as the **central application hub** — handling user authentication, post workflows, data validation, and communication between clients and the database.
+- Acts as the **central application hub** — handling user authentication, post workflows, data validation, and communication between the user and the database.
 
 **MongoDB Database**
 
-- Serves as the **primary data store**, maintaining all persistent information such as users, posts, comments, reactions, and bookmarks.
+- Serves as the **primary data store**, maintaining all persistent information such as users, posts, comments, reactions, bookmarks,  and activity logs.
 
 ---
 
 ## Summary
 
-- This diagram represents the **Level 0 Context View** of the GKMIT_INSIDE system.
-- It shows external entities (Employee and Admin) and their high-level interactions with the central process — **GKMIT_INSIDE** — which, in turn, exchanges and manages data through the **MongoDB database**.
+- This diagram represents the **Level 0 Context View** of the system.
+- It shows external entities (Employee and Admin) and their high-level interactions with the central process, which in turn, exchanges and manages data through the **MongoDB databases**.

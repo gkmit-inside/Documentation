@@ -4,107 +4,69 @@
 
 ## Overview
 
-The **Post Management** module handles the entire content lifecycle — from an employee’s initial submission to the final administrative decision. This module ensures that all content adheres to quality standards before being published to the main system feed.  
-It manages the **creation**, **modification**, **deletion**, and **approval** of all posts.
+The **Post Management** module is the content quality gatekeeper for the GKMIT-INSIDE platform. It handles the content lifecycle, ensuring all submitted material is reviewed and approved by an Admin before publication.
 
-The module primarily interacts with the **POSTS (Table)** collection to maintain post records and status tracking throughout their lifecycle.
+It manages the creation, deletion, and approval of all posts.
+
+The module primarily interacts with the **POSTS (MongoDB)** data store, which tracks post records and status (pending/approved/rejected).
 
 ---
 
 ## Workflow Explanation
 
-The module is divided into three core processes:
+The module is divided into two core processes:
 
-1. **Post Submission**
-2. **Post Modification / Deletion**
-3. **Admin Review & Decision**
-
-Each process focuses on a specific aspect of the post lifecycle while maintaining secure interactions with the database.
+*   **Post Submission (P3.0)**: Initial creation by the Employee.
+*   **Admin Review & Decision (P4.0)**: Content moderation by the Admin.
 
 ---
 
-## Workflow of Auth & Auth Module
+## Workflow of Post Management Module
 
 ![Post DFD: Level - 2](assets/images/post-dfd-level-2.png){ width="2900" height="2600" }
 
 ---
 
-## Post Submission (P1)
+## Post Submission (P3.0)
 
-This flow describes how an **Employee** submits new content:
+This flow describes how an **Employee** submits new content using the `CreatePost.jsx` component.
 
-1. **Employee → 3.0 Post Submission (1) Post Data**  
-   The Employee sends post content — `Title`, `Description`, `Media URL`, and `Tags` — to the **3.0 Post Submission** process.
-
-2. **3.0 Post Submission → POSTS (2) Create Record**  
-   The process creates a new document in the **POSTS** collection, automatically setting the `postStatus` to `"pending"`.
-
-3. **3.0 Post Submission → Employee (3) Redirect**  
-   The Employee is redirected to the **`/post/me`** page with a success message, where they can view their new post in a **pending** state.
+| Step | Data Flow                                     | Process        | Detail & Status                                                                               |
+| ---- | --------------------------------------------- | -------------- | --------------------------------------------------------------------------------------------- |
+| 1    | Employee → 3.0 Post Submission (1) Post Data  | Input          | The Employee sends post content (Title, Description, Image File, etc.) via the POST request. |
+| 2    | 3.0 Post Submission → POSTS (2) Create Record | Database Write | The process creates a new document in the **POSTS** collection, automatically setting the `postStatus` to "pending". |
+| 3    | 3.0 Post Submission → Employee (3) Confirmation | Output         | The Employee receives a success message ("Post created successfully. Awaiting admin approval."). |
 
 ---
 
-## Post Modification / Deletion (P2)
+## Admin Review & Decision (P4.0)
 
-This flow allows an **Employee** to manage their existing posts:
+This flow is managed by the **Admin** through the Post Management dashboard tabs.
 
-1. **Employee → 4.0 Post Modification / Deletion (4) Post ID + Request**  
-   The Employee sends a request to **edit** or **delete** one of their posts.
-
-2. **4.0 Post Modification / Deletion → POSTS (5) Validate User/Status**  
-   The process queries the database to ensure the requester is the original author (`userId` match) + JWT validation and checks the current post status.
-
-3. **POSTS → 4.0 Post Modification / Deletion (6) Existing Post Details**  
-   The database returns the required post details for validation of author.
-
-4. **4.0 Post Modification / Deletion → POSTS (7) Update / Delete Record**  
-   If validation succeeds, the process either updates the post content or marks it as deleted by setting the `deletedAt` field (soft deletion).
-
-5. **4.0 Post Modification / Deletion → Employee (8) Confirmation**  
-   The Employee receives confirmation that the update or deletion was successful.
-
----
-
-## Admin Review & Decision (P3)
-
-This flow is managed by the **Admin**, who oversees content approval and publication:
-
-1. **Admin → 5.0 Admin Review & Decision (9) Request Pending Posts**  
-   The Admin requests a list of posts awaiting review through the Admin dashboard.
-
-2. **5.0 Admin Review & Decision → POSTS (10) Read Pending Posts**  
-   The process queries the **POSTS** collection for records where `postStatus: "pending"`.
-
-3. **POSTS → 5.0 Admin Review & Decision (11) Pending Post Details**  
-   The database returns the pending posts to the Admin for review.
-
-4. **Admin → 5.0 Admin Review & Decision (12) Approve / Reject Action**  
-   The Admin chooses to **Approve** or **Reject** the post, optionally providing feedback.
-
-5. **5.0 Admin Review & Decision → POSTS (13) Update Status**  
-   The process updates the record in the **POSTS** collection, changing `postStatus` to `"approved"` or `"rejected"`, and sets the `approvedAt` timestamp.
-
-6. **5.0 Admin Review & Decision → Admin (14) Dashboard Update**  
-   The Admin dashboard confirms the successful status change and refreshes the view.
+| Step | Data Flow                                                   | Process        | Detail & Status                                                                                                   |
+| ---- | ----------------------------------------------------------- | -------------- | ----------------------------------------------------------------------------------------------------------------- |
+| 1    | Admin → 4.0 Admin Review & Decision (4) Request Pending Posts | Input          | The Admin requests a list of posts awaiting review via the Admin dashboard. |
+| 2    | 4.0 Admin Review & Decision → POSTS (5) Read Pending Posts    | Database Read  | The process queries the **POSTS** collection for records where `postStatus` is "pending".                               |
+| 3    | POSTS → 4.0 Admin Review & Decision (6) Pending Post Details  | Data Return    | The database returns the pending posts to the Admin table for review.                                             |
+| 4    | Admin → 4.0 Admin Review & Decision (7) Approve / Reject Action | Input          | The Admin chooses to Approve or Reject a post via the action buttons.                                             |
+| 5    | 4.0 Admin Review & Decision → POSTS (8) Update Status         | Database Write | The process updates the record, changing `postStatus` to "approved" or "rejected", and sets the `approvedAt` timestamp. |
+| 6    | 4.0 Admin Review & Decision → Admin (9) Dashboard Update / Confirmation | Output         | The Admin confirms the successful status change and the post is removed from the pending queue.                     |
 
 ---
 
 ## Process Summary
 
-| Process                              | Action                             | Outcome                                     |
-| ------------------------------------ | ---------------------------------- | ------------------------------------------- |
-| **3.0 Post Submission**              | Employee submits content           | New post created with `postStatus: pending` |
-| **4.0 Post Modification / Deletion** | Employee edits or deletes post     | Post updated or marked as deleted           |
-| **5.0 Admin Review & Decision**      | Admin reviews and approves/rejects | Post published or rejected                  |
+| Process                         | Primary Interactor | Core Action                   | Database Outcome                                   |
+| ------------------------------- | ------------------ | ----------------------------- | -------------------------------------------------- |
+| **3.0 Post Submission**         | Employee           | Submit content to moderation  | New record created with `postStatus: pending`      |
+| **4.0 Admin Review & Decision** | Admin              | Approve/Reject Content Visibility | `postStatus` updated to `approved` or `rejected` |
 
 ---
 
 ## Summary
 
-- The **Post Management** module acts as the **content quality gatekeeper** for the GKMIT_INSIDE platform.
-- It enforces a structured flow where Employees focus on content creation, while Admins maintain governance and moderation.
-- Through approval workflows, it ensures that only reviewed and authorized posts reach the main feed.
-- This separation of duties maintains platform integrity, promotes accountability, and supports transparent publication control.
-- Ultimately, it forms a vital bridge between **content creation** and **content governance** within the system.
-
----
+-   The **Post Management** module acts as the **content quality gatekeeper** for the GKMIT_INSIDE platform.
+-   It enforces a structured flow where Employees focus on content creation, while Admins maintain governance and moderation.
+-   Through explicit approval workflows, it ensures that only reviewed and authorized posts reach the main feed.
+-   This separation of duties maintains platform integrity, promotes accountability, and supports transparent publication control.
+-   Ultimately, it forms a vital bridge between **content creation** and **content governance** within the system.

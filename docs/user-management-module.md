@@ -4,55 +4,68 @@
 
 ## Overview
 
-The **User Management** module acts as the administrative gatekeeper for the system. Its primary role is to enforce access control by managing the approval or rejection of new accounts and providing the Admin with a comprehensive, read-only view of all registered users.
+The **User Management** module serves as the administrative gatekeeper for the GKMIT-INSIDE platform. Its primary function is to enforce and track user authorization, ensuring that only approved personnel can access the core application features.
 
-This module ensures that only approved users can gain full access to the application after their initial registration.
+This module exclusively handles administrative tasks related to user status:
+
+*   **Retrieval**: Fetching lists of pending and approved users.
+*   **Approval**: Updating a user's status to grant or revoke access.
+
+The module interacts solely with the **USERS (MongoDB)** data store.
 
 ---
 
 ## Workflow Explanation
 
-The module is structured around two key processes, both exclusively controlled by the **Admin** role, and interacting solely with the **USERS (MongoDB)** data store.
+The module is divided into two core processes, managed entirely by the Admin:
+
+*   **User Data Retrieval & Search (P5.0)**: Fetches the required lists of users based on their status.
+*   **User Status Update (Approval) (P6.0)**: Executes the final approval or rejection decision.
+
+---
+
+## Workflow of User Management Module
 
 ![User MGMT DFD: Level - 2](assets/images/user-dfd-level-2.png){ width="1000" height="1000" }
 
 ---
 
-## 1. User Data Retrieval & Search (P1)
+## User Data Retrieval & Search (P5.0)
 
-This flow enables the Admin to monitor the status of all registered users.
+This flow describes how the Admin populates the User Management dashboard tabs (Pending and Approved).
 
-1. **Admin → 6.0 User Data Retrieval & Search (1) Request All / Pending Users**  
-   The Admin initiates a request to the system to fetch the user list, optionally filtered to show only pending users or a specific account.
-
-2. **6.0 User Data Retrieval & Search → USERS (2) Read All User Records**  
-   The process queries the **USERS** collection to retrieve relevant user data.
-
-3. **USERS → 6.0 User Data Retrieval & Search (3) All User Data (with Status)**  
-   The database returns all user records, including their current `isApproved` status.
-
-4. **6.0 User Data Retrieval & Search → Admin (4) Display List & Search Results**  
-   The retrieved list is displayed on the Admin dashboard, allowing the Admin to identify and select accounts for approval.
+| Step | Data Flow                                        | Process       | Detail & Status                                                                                                   |
+| ---- | ------------------------------------------------ | ------------- | ----------------------------------------------------------------------------------------------------------------- |
+| 1    | Admin → 5.0 User Data Retrieval (1) Request All / Pending Users | Input         | The Admin selects a tab (e.g., 'Pending') which triggers a request to fetch users by status (`GET /api/admin/users?status=pending`). |
+| 2    | 5.0 User Data Retrieval → USERS (2) Read All User Records       | Database Read | The process queries the **USERS** collection for records matching the requested status (`isApproved: false` for pending). |
+| 3    | USERS → 5.0 User Data Retrieval (3) All User Data           | Data Return   | The database returns the user records, including essential fields like name, email, and `isApproved` status.      |
+| 4    | 5.0 User Data Retrieval → Admin (4) Display List            | Output        | The dashboard displays the retrieved users in a tabular list, ready for administrative action.                      |
 
 ---
 
-## 2. User Status Update (Approval) (P2)
+## User Status Update (Approval) (P6.0)
 
-This flow manages the activation or rejection of user accounts after administrative review.
+This flow describes how the Admin executes an action that changes a user's access status.
 
-1. **Admin → 7.0 User Status Update (Approval) (5) User ID + Approval/Rejection Action**  
-   The Admin selects a user and issues an action: Approve (sets `isApproved: true`) or Reject (keeps `isApproved: false`).
+| Step | Data Flow                                       | Process        | Detail & Status                                                                                                                              |
+| ---- | ----------------------------------------------- | -------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1    | Admin → 6.0 User Status Update (5) User ID + Action | Input          | The Admin clicks "Approve" or "Reject" on a user, sending the target user's `_id` and the desired new status (approved or pending).        |
+| 2    | 6.0 User Status Update → USERS (6) Update 'isApproved' Status | Database Write | The process updates the user's record in the **USERS** collection. If approved, `isApproved` is set to `true` and the `approvedAt` timestamp is recorded. |
+| 3    | 6.0 User Status Update → Admin (7) Success Message  | Output         | The Admin receives confirmation (via toast/optimistic UI update) that the user's status has been successfully updated, and the user disappears from the current list. |
 
-2. **7.0 User Status Update (Approval) → USERS (6) Update 'isApproved' Status**  
-   The process updates the corresponding user record in the **USERS** collection with the chosen status.
+---
 
-3. **7.0 User Status Update (Approval) → Admin (7) Success Message + Updated List Request**  
-   The Admin receives confirmation of the successful update, and the dashboard automatically refreshes to reflect the change.
+## Process Summary
+
+| Process                          | Primary Interactor | Core Action                      | Database Outcome                                     |
+| -------------------------------- | ------------------ | -------------------------------- | ---------------------------------------------------- |
+| **5.0 User Data Retrieval & Search** | Admin              | Fetch user lists by status.      | Retrieve user records.                               |
+| **6.0 User Status Update (Approval)** | Admin              | Grant or revoke user platform access. | Update `isApproved` status and approval timestamp. |
 
 ---
 
 ## Summary
 
-- The **User Management** module has a simple but critical governance function. By limiting its capabilities to reading user data and updating the binary approval flag, it centralizes system-level access control.
-- This design ensures that no user can access the main application features without explicit administrative approval.
-- It maintains strict oversight of user onboarding and upholds security and operational integrity across the GKMIT_INSIDE platform.
+-   The **User Management** module has a simple but critical governance function. By limiting its capabilities to reading user data and updating the binary approval flag, it centralizes system-level access control.
+-   This design ensures that no user can access the main application features without explicit administrative approval.
+-   It maintains strict oversight of user onboarding and upholds security and operational integrity across the GKMIT_INSIDE platform.

@@ -1,6 +1,6 @@
 # **Functional Use Cases**
 
-This section describes the interactive behavior and workflows within the **GKMIT_INSIDE** platform.
+This section describes the interactive behavior and workflows within the **GKMIT INSIDE** platform.
 
 ## Post Submission Flow
 
@@ -19,15 +19,15 @@ This workflow describes how developers create and submit content for review.
 Required fields:
 
 - Post title
+- Post Subtitle
 - Description/content body
-- Image upload (optional)
-- Code snippet (if applicable)
+- Image upload 
 - Tags for categorization
 
 **Step 3:Submit**
 
 - Post status changed to "Pending"
-- Appears in Admin's pending queue
+- Appears in Admin's pending post page
 
 **Step 4: Confirmation**
 
@@ -83,8 +83,7 @@ Admin chooses one of two actions:
 
 - Post status changes to "Rejected"
 - Post returns to author's "Your Posts"
-- Feedback message attached (optional)
-- Author can edit and resubmit
+- Feedback message attached (Future scope)
 
 **Step 5: Workflow Completion**
 
@@ -113,16 +112,14 @@ Each post displays:
 - Author username
 - Relative timestamp
 - Post description/preview
-- Featured image (if provided)
+- Featured image
 
 **Step 3: User Interactions**
 
 Users can:
 
-- Click post to view full details
-- Save post to personal collection
-- Search for specific content
-- Filter by tags/categories
+- React/Comment to the posts.
+- Save post to personal collection.
 
 ---
 
@@ -148,15 +145,11 @@ Activities shown as:
 
 - Examples:
   - "Akash posted 'Understanding REST APIs' 3hrs ago"
-  - "Divyansh updated 'React Best Practices' 1hr ago"
-  - "New user Priya joined the platform today"
 
 ### Update Mechanism
 
-- Real-time or near-real-time updates
-- Activity feed refreshes periodically
+- Near-real-time updates
 - Recent activities prioritized
-- Historical activities archived after period
 
 ---
 
